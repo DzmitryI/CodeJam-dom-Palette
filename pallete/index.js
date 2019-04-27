@@ -58,6 +58,71 @@ transform.addEventListener("click", function (event) {
     }
 });
 
+const canvasItem1 = document.getElementById('canvas-item-1');
+const canvasItem2 = document.getElementById('canvas-item-2');
+const canvasItem3 = document.getElementById('canvas-item-3');
+const canvasItem4 = document.getElementById('canvas-item-4');
+const canvasItem5 = document.getElementById('canvas-item-5');
+const canvasItem6 = document.getElementById('canvas-item-6');
+const canvasItem7 = document.getElementById('canvas-item-7');
+const canvasItem8 = document.getElementById('canvas-item-8');
+const canvasItem9 = document.getElementById('canvas-item-9');
+const currentColor = document.getElementById('current');
+
+canvasItem1.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem1.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem2.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem2.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem3.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem3.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem4.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem4.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem5.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem5.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem6.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem6.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem7.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem7.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem8.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem8.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
+canvasItem9.addEventListener("click", (event) => {
+    if (state.correntTool === 'paintBacket') {
+        canvasItem9.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+    }
+
+})
 document.addEventListener("click", (event) => {
     console.log("event", event);
 })
