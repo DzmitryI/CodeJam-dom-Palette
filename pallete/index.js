@@ -68,61 +68,58 @@ const canvasItem7 = document.getElementById('canvas-item-7');
 const canvasItem8 = document.getElementById('canvas-item-8');
 const canvasItem9 = document.getElementById('canvas-item-9');
 const currentColor = document.getElementById('current');
+const prevColor = document.getElementById('prev');
 
 canvasItem1.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem1.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem1.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem2.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem2.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem2.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem3.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem3.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem3.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem4.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem4.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem4.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem5.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem5.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem5.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem6.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem6.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem6.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem7.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem7.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem7.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem8.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem8.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem8.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
 canvasItem9.addEventListener("click", (event) => {
     if (state.correntTool === 'paintBacket') {
-        canvasItem9.style.backgroundColor = color = window.getComputedStyle(currentColor).backgroundColor;
+        canvasItem9.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
-
 })
+
 document.addEventListener("click", (event) => {
-    console.log("event", event);
+    if(state.correntTool === 'chooseColor' && event.target.parentNode.id !== "choose-color" && event.target.id !== "choose-color") {
+        const newColor = window.getComputedStyle(event.target).backgroundColor;
+        prevColor.style.backgroundColor =  window.getComputedStyle(currentColor).backgroundColor;
+        currentColor.style.backgroundColor = newColor;
+    }
 })
