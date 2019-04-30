@@ -3,11 +3,49 @@ const chooseColor = document.getElementById('choose-color');
 const move = document.getElementById('move');
 const transform = document.getElementById('transform');
 const canvas = document.getElementById('canvas');
+const currentColor = document.getElementById('current');
+const prevColor = document.getElementById('prev');
 const state = {
     correntTool: '',
 }
-let count = 0;
 
+if (localStorage.getItem('state') !== null) {
+    let localState = localStorage.getItem("state");
+    state.correntTool = localState;
+    switch (localState) {
+        case 'paintBacket':
+            paintBacket.classList.add('button-active');
+            document.body.style.cursor = "url('./assets/icons/paint_backet.png'), auto";
+            break;
+        case 'chooseColor':
+            chooseColor.classList.add('button-active');
+            document.body.style.cursor = "default";
+            break;
+        case 'move':
+            move.classList.add('button-active');
+            document.body.style.cursor = "url('./assets/icons/move.png'), auto";
+            break;
+        case 'transform':
+            transform.classList.add('button-active');
+            document.body.style.cursor = "url('./assets/icons/transform.png'), auto";
+            break;
+        default:
+            break;
+    }
+}
+if (localStorage.getItem('prevColor') !== null) {
+    let LocalPrevColor = localStorage.getItem('prevColor');
+    prevColor.style.backgroundColor = LocalPrevColor;
+}
+if (localStorage.getItem('currentColor') !== null) {
+    let LocalCurrentColor = localStorage.getItem('currentColor');
+    currentColor.style.backgroundColor = LocalCurrentColor;
+}
+
+if (localStorage.getItem('canvas') !== null ) {
+    let LocalCanvas = localStorage.getItem('canvas');
+    canvas.innerHTML = LocalCanvas;
+}
 document.onkeypress = function (event) {
     switch (event.key) {
         case "p":
@@ -24,6 +62,7 @@ document.onkeypress = function (event) {
                 paintBacket.classList.add('button-active');
                 document.body.style.cursor = "url('./assets/icons/paint_backet.png'), auto";
             }
+            localStorage.setItem("state", state.correntTool);
             break;
         case "c":
             paintBacket.classList.remove('button-active');
@@ -39,6 +78,7 @@ document.onkeypress = function (event) {
                 chooseColor.classList.add('button-active');
                 document.body.style.cursor = "default";
             }
+            localStorage.setItem("state", state.correntTool);
             break;
         case "m":
             paintBacket.classList.remove('button-active');
@@ -54,6 +94,7 @@ document.onkeypress = function (event) {
                 move.classList.add('button-active');
                 document.body.style.cursor = "url('./assets/icons/move.png'), auto";
             }
+            localStorage.setItem("state", state.correntTool);
             break;
         case "t":
             paintBacket.classList.remove('button-active');
@@ -69,6 +110,7 @@ document.onkeypress = function (event) {
                 transform.classList.add('button-active');
                 document.body.style.cursor = "url('./assets/icons/transform.png'), auto";
             }
+            localStorage.setItem("state", state.correntTool);
             break;
         default:
             break;
@@ -88,6 +130,7 @@ paintBacket.addEventListener("click", function (event) {
         paintBacket.classList.add('button-active');
         document.body.style.cursor = "url('./assets/icons/paint_backet.png'), auto";
     }
+    localStorage.setItem("state", state.correntTool);
 });
 chooseColor.addEventListener("click", function (event) {
     paintBacket.classList.remove('button-active');
@@ -103,6 +146,7 @@ chooseColor.addEventListener("click", function (event) {
         chooseColor.classList.add('button-active');
         document.body.style.cursor = "default";
     }
+    localStorage.setItem("state", state.correntTool);
 });
 move.addEventListener("click", function (event) {
     paintBacket.classList.remove('button-active');
@@ -118,6 +162,7 @@ move.addEventListener("click", function (event) {
         move.classList.add('button-active');
         document.body.style.cursor = "url('./assets/icons/move.png'), auto";
     }
+    localStorage.setItem("state", state.correntTool);
 });
 transform.addEventListener("click", function (event) {
     paintBacket.classList.remove('button-active');
@@ -133,16 +178,16 @@ transform.addEventListener("click", function (event) {
         transform.classList.add('button-active');
         document.body.style.cursor = "url('./assets/icons/transform.png'), auto";
     }
+    localStorage.setItem("state", state.correntTool);
 });
-
-const currentColor = document.getElementById('current');
-const prevColor = document.getElementById('prev');
 
 document.addEventListener("click", (event) => {
     if (state.correntTool === 'chooseColor' && event.target.parentNode.id !== "choose-color" && event.target.id !== "choose-color") {
         const newColor = window.getComputedStyle(event.target).backgroundColor;
         prevColor.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
         currentColor.style.backgroundColor = newColor;
+        localStorage.setItem('prevColor', prevColor.style.backgroundColor);
+        localStorage.setItem('currentColor', currentColor.style.backgroundColor);
     }
     let elem = event.target.closest('.draggable');
     if (!elem) return;
@@ -158,12 +203,13 @@ document.addEventListener("click", (event) => {
             elem.classList.remove('circle');
         }
     }
+    localStorage.setItem('canvas', canvas.innerHTML );
 })
 
 let dragSrcEl = null;
 function handleDragStart(event) {
     if (state.correntTool === 'move')
-        dragSrcEl = this;
+        dragSrcEl = this;      
 }
 function handleDragOver(event) {
     event.preventDefault();
@@ -186,6 +232,7 @@ function handleDrop(event) {
             canvas.insertBefore(ren, curring);
         }
         this.classList.remove('over');
+        localStorage.setItem('canvas', canvas.innerHTML );
     }
 }
 function handleDragEnd(event) {
@@ -193,12 +240,12 @@ function handleDragEnd(event) {
         col.classList.remove('over');
     });
 }
-        var cols = document.querySelectorAll('.draggable');
-        [].forEach.call(cols, function (col) {
-            col.addEventListener('dragstart', handleDragStart);
-            col.addEventListener('dragenter', handleDragEnter)
-            col.addEventListener('dragover', handleDragOver);
-            col.addEventListener('dragleave', handleDragLeave);
-            col.addEventListener('drop', handleDrop);
-            col.addEventListener('dragend', handleDragEnd);
-        });
+var cols = document.querySelectorAll('.draggable');
+[].forEach.call(cols, function (col) {
+    col.addEventListener('dragstart', handleDragStart);
+    col.addEventListener('dragenter', handleDragEnter)
+    col.addEventListener('dragover', handleDragOver);
+    col.addEventListener('dragleave', handleDragLeave);
+    col.addEventListener('drop', handleDrop);
+    col.addEventListener('dragend', handleDragEnd);
+});
