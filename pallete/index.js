@@ -6,11 +6,11 @@ const canvas = document.getElementById('canvas');
 const currentColor = document.getElementById('current');
 const prevColor = document.getElementById('prev');
 const state = {
-    correntTool: '',
-}
+    correntTool: ''
+};
 
 if (localStorage.getItem('state') !== null) {
-    let localState = localStorage.getItem("state");
+    const localState = localStorage.getItem('state');
     state.correntTool = localState;
     switch (localState) {
         case 'paintBacket':
@@ -19,7 +19,7 @@ if (localStorage.getItem('state') !== null) {
             break;
         case 'chooseColor':
             chooseColor.classList.add('button-active');
-            document.body.style.cursor = "default";
+            document.body.style.cursor = 'default';
             break;
         case 'move':
             move.classList.add('button-active');
@@ -33,163 +33,166 @@ if (localStorage.getItem('state') !== null) {
             break;
     }
 }
+
 if (localStorage.getItem('prevColor') !== null) {
-    let LocalPrevColor = localStorage.getItem('prevColor');
+    const LocalPrevColor = localStorage.getItem('prevColor');
     prevColor.style.backgroundColor = LocalPrevColor;
 }
+
 if (localStorage.getItem('currentColor') !== null) {
-    let LocalCurrentColor = localStorage.getItem('currentColor');
+    const LocalCurrentColor = localStorage.getItem('currentColor');
     currentColor.style.backgroundColor = LocalCurrentColor;
 }
 
-if (localStorage.getItem('canvas') !== null ) {
-    let LocalCanvas = localStorage.getItem('canvas');
+if (localStorage.getItem('canvas') !== null) {
+    const LocalCanvas = localStorage.getItem('canvas');
     canvas.innerHTML = LocalCanvas;
 }
-document.onkeypress = function (event) {
+
+document.onkeypress = function(event) {
     switch (event.key) {
-        case "p":
+        case 'p':
             chooseColor.classList.remove('button-active');
             move.classList.remove('button-active');
             transform.classList.remove('button-active');
             if (state.correntTool === 'paintBacket') {
                 paintBacket.classList.remove('button-active');
                 state.correntTool = '';
-                document.body.style.cursor = "default";
-            }
-            else {
+                document.body.style.cursor = 'default';
+            } else {
                 state.correntTool = 'paintBacket';
                 paintBacket.classList.add('button-active');
                 document.body.style.cursor = "url('./assets/icons/paint_backet.png'), auto";
             }
-            localStorage.setItem("state", state.correntTool);
+            localStorage.setItem('state', state.correntTool);
             break;
-        case "c":
+        case 'c':
             paintBacket.classList.remove('button-active');
             move.classList.remove('button-active');
             transform.classList.remove('button-active');
             if (state.correntTool === 'chooseColor') {
                 chooseColor.classList.remove('button-active');
                 state.correntTool = '';
-                document.body.style.cursor = "default";
-            }
-            else {
+                document.body.style.cursor = 'default';
+            } else {
                 state.correntTool = 'chooseColor';
                 chooseColor.classList.add('button-active');
-                document.body.style.cursor = "default";
+                document.body.style.cursor = 'default';
             }
-            localStorage.setItem("state", state.correntTool);
+            localStorage.setItem('state', state.correntTool);
             break;
-        case "m":
+        case 'm':
             paintBacket.classList.remove('button-active');
             chooseColor.classList.remove('button-active');
             transform.classList.remove('button-active');
             if (state.correntTool === 'move') {
                 move.classList.remove('button-active');
                 state.correntTool = '';
-                document.body.style.cursor = "default";
-            }
-            else {
+                document.body.style.cursor = 'default';
+            } else {
                 state.correntTool = 'move';
                 move.classList.add('button-active');
                 document.body.style.cursor = "url('./assets/icons/move.png'), auto";
             }
-            localStorage.setItem("state", state.correntTool);
+            localStorage.setItem('state', state.correntTool);
             break;
-        case "t":
+        case 't':
             paintBacket.classList.remove('button-active');
             chooseColor.classList.remove('button-active');
             move.classList.remove('button-active');
             if (state.correntTool === 'transform') {
                 transform.classList.remove('button-active');
                 state.correntTool = '';
-                document.body.style.cursor = "default";
-            }
-            else {
+                document.body.style.cursor = 'default';
+            } else {
                 state.correntTool = 'transform';
                 transform.classList.add('button-active');
                 document.body.style.cursor = "url('./assets/icons/transform.png'), auto";
             }
-            localStorage.setItem("state", state.correntTool);
+            localStorage.setItem('state', state.correntTool);
             break;
         default:
             break;
     }
-}
-paintBacket.addEventListener("click", function (event) {
+};
+
+paintBacket.addEventListener('click', function() {
     chooseColor.classList.remove('button-active');
     move.classList.remove('button-active');
     transform.classList.remove('button-active');
     if (state.correntTool === 'paintBacket') {
         paintBacket.classList.remove('button-active');
         state.correntTool = '';
-        document.body.style.cursor = "default";
-    }
-    else {
+        document.body.style.cursor = 'default';
+    } else {
         state.correntTool = 'paintBacket';
         paintBacket.classList.add('button-active');
         document.body.style.cursor = "url('./assets/icons/paint_backet.png'), auto";
     }
-    localStorage.setItem("state", state.correntTool);
+    localStorage.setItem('state', state.correntTool);
 });
-chooseColor.addEventListener("click", function (event) {
+
+chooseColor.addEventListener('click', function() {
     paintBacket.classList.remove('button-active');
     move.classList.remove('button-active');
     transform.classList.remove('button-active');
     if (state.correntTool === 'chooseColor') {
         chooseColor.classList.remove('button-active');
         state.correntTool = '';
-        document.body.style.cursor = "default";
-    }
-    else {
+        document.body.style.cursor = 'default';
+    } else {
         state.correntTool = 'chooseColor';
         chooseColor.classList.add('button-active');
-        document.body.style.cursor = "default";
+        document.body.style.cursor = 'default';
     }
-    localStorage.setItem("state", state.correntTool);
+    localStorage.setItem('state', state.correntTool);
 });
-move.addEventListener("click", function (event) {
+
+move.addEventListener('click', function() {
     paintBacket.classList.remove('button-active');
     chooseColor.classList.remove('button-active');
     transform.classList.remove('button-active');
     if (state.correntTool === 'move') {
         move.classList.remove('button-active');
         state.correntTool = '';
-        document.body.style.cursor = "default";
-    }
-    else {
+        document.body.style.cursor = 'default';
+    } else {
         state.correntTool = 'move';
         move.classList.add('button-active');
         document.body.style.cursor = "url('./assets/icons/move.png'), auto";
     }
-    localStorage.setItem("state", state.correntTool);
+    localStorage.setItem('state', state.correntTool);
 });
-transform.addEventListener("click", function (event) {
+
+transform.addEventListener('click', function() {
     paintBacket.classList.remove('button-active');
     chooseColor.classList.remove('button-active');
     move.classList.remove('button-active');
     if (state.correntTool === 'transform') {
         transform.classList.remove('button-active');
         state.correntTool = '';
-        document.body.style.cursor = "default";
-    }
-    else {
+        document.body.style.cursor = 'default';
+    } else {
         state.correntTool = 'transform';
         transform.classList.add('button-active');
         document.body.style.cursor = "url('./assets/icons/transform.png'), auto";
     }
-    localStorage.setItem("state", state.correntTool);
+    localStorage.setItem('state', state.correntTool);
 });
 
-document.addEventListener("click", (event) => {
-    if (state.correntTool === 'chooseColor' && event.target.parentNode.id !== "choose-color" && event.target.id !== "choose-color") {
+document.addEventListener('click', event => {
+    if (
+        state.correntTool === 'chooseColor' &&
+        event.target.parentNode.id !== 'choose-color' &&
+        event.target.id !== 'choose-color'
+    ) {
         const newColor = window.getComputedStyle(event.target).backgroundColor;
         prevColor.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
         currentColor.style.backgroundColor = newColor;
         localStorage.setItem('prevColor', prevColor.style.backgroundColor);
         localStorage.setItem('currentColor', currentColor.style.backgroundColor);
     }
-    let elem = event.target.closest('.draggable');
+    const elem = event.target.closest('.draggable');
     if (!elem) return;
     if (state.correntTool === 'paintBacket') {
         elem.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
@@ -198,52 +201,54 @@ document.addEventListener("click", (event) => {
         elem.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
         if (event.target.className !== 'draggable circle') {
             elem.classList.add('circle');
-        }
-        else {
+        } else {
             elem.classList.remove('circle');
         }
     }
-    localStorage.setItem('canvas', canvas.innerHTML );
-})
+    localStorage.setItem('canvas', canvas.innerHTML);
+});
 
 let dragSrcEl = null;
-function handleDragStart(event) {
-    if (state.correntTool === 'move')
-        dragSrcEl = this;      
+function handleDragStart() {
+    if (state.correntTool === 'move') dragSrcEl = this;
 }
+
 function handleDragOver(event) {
     event.preventDefault();
 }
-function handleDragEnter(event) {
-    if (state.correntTool === 'move')
-        this.classList.add('over');
+
+function handleDragEnter() {
+    if (state.correntTool === 'move') this.classList.add('over');
 }
-function handleDragLeave(event) {
+
+function handleDragLeave() {
     this.classList.remove('over');
 }
+
 function handleDrop(event) {
     if (state.correntTool === 'move') {
         event.stopPropagation();
-        if (dragSrcEl != this) {
+        if (dragSrcEl !== this) {
             let curring = this.nextElementSibling;
-            if (curring == dragSrcEl)
-                curring = this;
-            let ren = canvas.replaceChild(this, dragSrcEl);
+            if (curring === dragSrcEl) curring = this;
+            const ren = canvas.replaceChild(this, dragSrcEl);
             canvas.insertBefore(ren, curring);
         }
         this.classList.remove('over');
-        localStorage.setItem('canvas', canvas.innerHTML );
+        localStorage.setItem('canvas', canvas.innerHTML);
     }
 }
-function handleDragEnd(event) {
-    [].forEach.call(cols, function (col) {
+
+const cols = document.querySelectorAll('.draggable');
+function handleDragEnd() {
+    [].forEach.call(cols, function(col) {
         col.classList.remove('over');
     });
 }
-var cols = document.querySelectorAll('.draggable');
-[].forEach.call(cols, function (col) {
+
+[].forEach.call(cols, function(col) {
     col.addEventListener('dragstart', handleDragStart);
-    col.addEventListener('dragenter', handleDragEnter)
+    col.addEventListener('dragenter', handleDragEnter);
     col.addEventListener('dragover', handleDragOver);
     col.addEventListener('dragleave', handleDragLeave);
     col.addEventListener('drop', handleDrop);
