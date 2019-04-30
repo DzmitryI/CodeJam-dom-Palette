@@ -2,6 +2,7 @@ const paintBacket = document.getElementById('paint-backet');
 const chooseColor = document.getElementById('choose-color');
 const move = document.getElementById('move');
 const transform = document.getElementById('transform');
+const canvas = document.getElementById('canvas');
 const state = {
     correntTool: '',
 }
@@ -72,9 +73,7 @@ document.onkeypress = function (event) {
         default:
             break;
     }
-
 }
-
 paintBacket.addEventListener("click", function (event) {
     chooseColor.classList.remove('button-active');
     move.classList.remove('button-active');
@@ -146,7 +145,7 @@ document.addEventListener("click", (event) => {
         currentColor.style.backgroundColor = newColor;
     }
     let elem = event.target.closest('.draggable');
-    if (!elem) return; // не нашли, клик вне draggable-объекта
+    if (!elem) return;
     if (state.correntTool === 'paintBacket') {
         elem.style.backgroundColor = window.getComputedStyle(currentColor).backgroundColor;
     }
@@ -161,117 +160,45 @@ document.addEventListener("click", (event) => {
     }
 })
 
-const dragObject = {};
-document.onmousedown = function (event) {
-
+let dragSrcEl = null;
+function handleDragStart(event) {
+    if (state.correntTool === 'move')
+        dragSrcEl = this;
+}
+function handleDragOver(event) {
+    event.preventDefault();
+}
+function handleDragEnter(event) {
+    if (state.correntTool === 'move')
+        this.classList.add('over');
+}
+function handleDragLeave(event) {
+    this.classList.remove('over');
+}
+function handleDrop(event) {
     if (state.correntTool === 'move') {
-        // const width = window.getComputedStyle(canvasItem1).width;
-        // const height = window.getComputedStyle(canvasItem1).height;
-        // console.log('width', width);
-        // console.log('height', height);
-        // canvasItem1.style.width = width;
-        // canvasItem1.style.height = height;
-        // canvasItem1.dr
-        // ball.onmousedown = function(e) { // 1. отследить нажатие
-        //
-        var elem = event.target.closest('.draggable');
-
-        if (!elem) return; // не нашли, клик вне draggable-объекта
-
-        // // запомнить переносимый объект
-        // dragObject.elem = elem;
-
-        // // запомнить координаты, с которых начат перенос объекта
-        // dragObject.downX = event.pageX;
-        // dragObject.downY = event.pageY;
-        // //
-        // elem.dragObject
-        var dragSrcEl = null;
-        function handleDragStart(e) {
-            this.style.opacity = '0.4';  // this / e.target is the source node.
-            dragSrcEl = this;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
+        event.stopPropagation();
+        if (dragSrcEl != this) {
+            let curring = this.nextElementSibling;
+            if (curring == dragSrcEl)
+                curring = this;
+            let ren = canvas.replaceChild(this, dragSrcEl);
+            canvas.insertBefore(ren, curring);
         }
-
-        function handleDragOver(e) {
-            // if (e.preventDefault) {
-            e.preventDefault(); // Necessary. Allows us to drop.
-            // }
-            e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-            return false;
-        }
-
-        function handleDragEnter(e) {
-            this.classList.add('over');
-        }
-
-        function handleDragLeave(e) {
-            this.classList.remove('over');  // this / e.target is previous target element.
-        }
-
-        function handle1Drop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation(); // Stops some browsers from redirecting.
-            }
-            if (dragSrcEl != this) {
-                dragSrcEl.innerHTML = this.innerHTML;
-                this.innerHTML = e.dataTransfer.getData('text/html');
-            }
-            console.log(count++);
-            return false;
-        }
-
-        function handleDragEnd(e) {
-
-            [].forEach.call(cols, function (col) {
-                col.classList.remove('over');
-            });
-        }
-
+        this.classList.remove('over');
+    }
+}
+function handleDragEnd(event) {
+    [].forEach.call(cols, function (col) {
+        col.classList.remove('over');
+    });
+}
         var cols = document.querySelectorAll('.draggable');
         [].forEach.call(cols, function (col) {
-            col.addEventListener('dragstart', handleDragStart, false);
-            col.addEventListener('dragenter', handleDragEnter, false)
-            col.addEventListener('dragover', handleDragOver, false);
-            col.addEventListener('dragleave', handleDragLeave, false);
-            col.addEventListener('drop', handle1Drop, false);
-            col.addEventListener('dragend', handleDragEnd, false);
+            col.addEventListener('dragstart', handleDragStart);
+            col.addEventListener('dragenter', handleDragEnter)
+            col.addEventListener('dragover', handleDragOver);
+            col.addEventListener('dragleave', handleDragLeave);
+            col.addEventListener('drop', handleDrop);
+            col.addEventListener('dragend', handleDragEnd);
         });
-
-
-
-
-        // // подготовить к перемещению
-        // // 2. разместить на том же месте, но в абсолютных координатах
-        // canvasItem1.style.position = 'absolute';
-        // moveAt(event);
-        // // переместим в body, чтобы мяч был точно не внутри position:relative
-        // document.body.appendChild(canvasItem1);
-
-        // canvasItem1.style.zIndex = 1000; // показывать мяч над другими элементами
-
-        // // передвинуть мяч под координаты курсора
-        // // и сдвинуть на половину ширины/высоты для центрирования
-        // function moveAt(event) {
-        //     canvasItem1.style.left = event.pageX - canvasItem1.offsetWidth / 2 + 'px';
-        //     canvasItem1.style.top = event.pageY - canvasItem1.offsetHeight / 2 + 'px';
-        // }
-
-        // // 3, перемещать по экрану
-        // document.onmousemove = function (e) {
-        //     moveAt(event);
-        // }
-        // canvasItem1.ondragstart = function () {
-        //     return false;
-        // };
-        // // 4. отследить окончание переноса
-        // canvasItem1.onmouseup = function () {
-        //     document.onmousemove = null;
-        //     canvasItem1.onmouseup = null;
-        // }
-
-    }
-
-}
-
