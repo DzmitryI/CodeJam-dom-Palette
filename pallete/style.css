@@ -1,0 +1,168 @@
+@font-face{ 
+	font-family: 'Roboto-Regular'; 
+    src: url("./assets/fonts/Roboto-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Roboto-Regular.woff") format("woff"),
+    url('./assets/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    font-family: 'Roboto-Regular';
+}
+
+.header {
+    display: flex;
+    height: 48px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+    flex: 1 1 auto;
+    font-size: 1em;
+}
+
+.header-button-nav, .header-button-menu {
+    background: rgba(255, 255, 255, 1);
+    border: none;
+} 
+
+.header-button-menu {
+    height: 40px;
+}
+
+.header-button-nav {
+    width: 12px;
+    margin-right: 16px;
+}
+
+.button {
+    margin: 0;
+    padding: 0;
+    width: 196px;
+    height: 48px;
+    background: rgba(255, 255, 255, 1);
+    border: none;
+    color: rgba(0, 0, 0, 0.541327);
+    text-align: left;
+    font-family: 'Roboto-Regular';
+    font-size: 1em;
+}
+
+.button:hover {
+    background: rgb(240, 234, 234);
+}
+
+.button:focus {
+    outline: none;
+} 
+
+.button-active {
+    background: rgb(240, 234, 234);
+}
+
+img {
+    padding-left: 2px;
+    padding-right: 42px;
+}
+
+ul {
+    width: 196px;
+    padding-left: 14px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    height: 48px;
+}
+
+.item-line {
+    height: 16px;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows:  2fr 2fr;
+    grid-template-areas: "pallete canvas"
+                         "colors canvas";
+    margin: 79px 41px 42px 29px;
+}
+
+.conteiner {
+    width: 228px;
+    height: 246px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: rgba(0, 0, 0, 0.541327);
+}
+
+.pallete {
+    grid-area: pallete;
+    margin-bottom: 92px;
+}
+
+.color {
+    grid-area: colors;
+}
+
+.color-item {
+    width: 20px; 
+    height: 20px;
+    margin-right: 18px;
+    border-radius: 50%;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.current {
+    background: rgb(147, 151, 151);
+}
+
+.prev {
+    background: rgb(21, 223, 14);
+}
+
+.red {
+    background: rgb(245, 4, 4);
+}
+
+.blue {
+    background: rgb(82, 171, 243);
+}
+
+hr {
+    width: -webkit-fill-available;
+}
+
+.canvas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows:  1fr 1fr 1fr;
+    grid-gap: 8px;
+    grid-area: canvas;
+}
+
+.draggable
+ {
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.541327);
+}
+
+.circle {
+    width: 100%; 
+    height: 100%;
+    border-radius: 50%;
+}
+
+.over{
+    border: 2px dashed #000;
+}
+
+
+  
